@@ -1,6 +1,7 @@
 # COMPSCI-2XC3-Lab_2_3
 
-Purpose
+### Purpose
+
 This lab focuses on implementing, analysing, and optimizing some traditional sorting algorithms. This lab
 will span two weeks. In the first week you will cover the following (but not limited to):
 - Compare the runtimes of Bubble, Selection, and Insertion sorts
@@ -8,6 +9,7 @@ will span two weeks. In the first week you will cover the following (but not lim
 much (if any) improvements you observe
 - Analyse the performance of these algorithms under specific cases such as short lists and if the
 list are “near sorted”
+
 During the second week you will cover the following (but not limited to):
 - Compare the runtimes of Merge, Quick, and Heap sorts
 - Implement variations on Merge and Quick sort and run experiments to determine how much (if
