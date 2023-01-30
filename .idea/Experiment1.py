@@ -1,37 +1,68 @@
-import Tools
+from numpy import *
+import math
 import random
 import timeit
 import matplotlib.pyplot as plt
 
+# Create a random list length "length" containing whole numbers between 0 and max_value inclusive
+def create_random_list(n):
+    L = []
+    for _ in range(n):
+        L.append(random.randint(1,n))
+    return L
+
+
+# Creates a near sorted list by creating a random list, sorting it, then doing a random number of swaps
+def create_near_sorted_list(length, max_value, swaps):
+    L = create_random_list(length, max_value)
+    L.sort()
+    for _ in range(swaps):
+        r1 = random.randint(0, length - 1)
+        r2 = random.randint(0, length - 1)
+        swap(L, r1, r2)
+    return L
+
+# I have created this function to make the sorting algorithm code read easier
+def swap(L, i, j):
+    L[i], L[j] = L[j], L[i]
+
+# ******************* Insertion sort code *******************
+
+# This is the traditional implementation of Insertion Sort.
+def insertion_sort(L):
+    for i in range(1, len(L)):
+        insert(L, i)
+
+
+def insert(L, i):
+    while i > 0:
+        if L[i] < L[i-1]:
+            swap(L, i-1, i)
+            i -= 1
+        else:
+            return
+
+
+
 
 # ******************* Bubble sort code *******************
+
 # Traditional Bubble sort
 def bubble_sort(L):
     for i in range(len(L)):
         for j in range(len(L) - 1):
             if L[j] > L[j+1]:
-                Tools.swap(L, j, j+1)
+                swap(L, j, j+1)
 
-# ******************* Insertion sort code *******************
-# Traditional Insertion sort
-def insertion_sort(L):
-    for i in range(1, len(L)):
-        insert(L, i)
-
-def insert(L, i):
-    while i > 0:
-        if L[i] < L[i-1]:
-            Tools.swap(L, i-1, i)
-            i -= 1
-        else:
-            return
 
 # ******************* Selection sort code *******************
+
 # Traditional Selection sort
 def selection_sort(L):
     for i in range(len(L)):
         min_index = find_min_index(L, i)
-        Tools.swap(L, i, min_index)
+        swap(L, i, min_index)
+
 
 def find_min_index(L, n):
     min_index = n
@@ -40,53 +71,58 @@ def find_min_index(L, n):
             min_index = i
     return min_index
 
-
 # **************************************************************************
 #                       ***** Experiments Begin *****
 # **************************************************************************
 
 
-# ******************* ~ Experiment A ~ *******************
 
-nA = 100                 #number of simulations
-kA = 1000                #size of the list
-maxElementA = 100        #max size of an element
+def compareRunTimes():
+    n=0
+    # creating empty lists to store times for each sort 
+    bubbleSortTime=[]
+    insertionSortTime=[]
+    selectionSortTime=[]
 
-totalBubbleTimeA = 0;
-totalInsertionTimeA = 0;
-totalSelectionTimeA = 0;
-
-for _ in range(nA):
-    L = Tools.create_random_list(kA,maxElementA)
-    L2 = L.copy()
-    L3 = L.copy()
-
-    start1 = timeit.default_timer()
-    bubble_sort(L)
-    end1 = timeit.default_timer()
-    totalBubbleTimeA += end1 - start1
-
-    start2 = timeit.default_timer()
-    insertion_sort(L2)
-    end2 = timeit.default_timer()
-    totalInsertionTimeA += end2 - start2
+    #creating empty lists to store the list length  
+    elementsBubbleSort=[]
+    elementsInsertionSort=[]
+    elementsSectionSort=[]
 
 
-    start3 = timeit.default_timer()
-    selection_sort(L3)
-    end3 = timeit.default_timer()
-    totalSelectionTimeA += end3 - start3
-
-# ******************* ~ Experiment B ~ *******************
-
-print("~ Total Run-Times After",nA,"Sorted Lists (seconds) ~")
-print("List Size:",kA,"\t"+"Max Element Size:",maxElementA)
-print("------------------------------------------------------")
-print("Bubble sort:",totalBubbleTimeA)
-print("Insertion sort:",totalInsertionTimeA)
-print("Selection sort:",totalSelectionTimeA)
-
-# plt.plot()
-# plt.show()
+    while n < 3000:
+        n += 100
 
 
+        #running tests for the bubble sort
+        L = create_random_list(n)
+        start = timeit.default_timer()
+        bubble_sort(L)
+        end = timeit.default_timer()
+        bubbleSortTime.append(end - start)
+        elementsBubbleSort.append(n)
+
+        #running tests for the insertion sort
+        L = create_random_list(n)
+        start = timeit.default_timer()
+        insertion_sort(L)
+        end = timeit.default_timer()
+        insertionSortTime.append(end - start)
+        elementsInsertionSort.append(n)
+
+        #running tests for the selection sort
+        L = create_random_list(n)
+        start = timeit.default_timer()
+        selection_sort(L)
+        end = timeit.default_timer()
+        selectionSortTime.append(end - start)
+        elementsSectionSort.append(n)
+
+    #plotting the graph
+    plt.plot(elementsBubbleSort,bubbleSortTime,label = "bubble sort")
+    plt.plot(elementsInsertionSort,insertionSortTime,label = "insertion sort")
+    plt.plot(elementsSectionSort,selectionSortTime,label = "selection sort")
+    plt.legend()
+    plt.show()
+
+compareRunTimes()
