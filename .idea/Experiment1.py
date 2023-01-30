@@ -1,6 +1,7 @@
 import Tools
 import random
 import timeit
+import matplotlib.pyplot as plt
 
 
 # ******************* Bubble sort code *******************
@@ -10,7 +11,6 @@ def bubble_sort(L):
         for j in range(len(L) - 1):
             if L[j] > L[j+1]:
                 Tools.swap(L, j, j+1)
-
 
 # ******************* Insertion sort code *******************
 # Traditional Insertion sort
@@ -25,7 +25,6 @@ def insert(L, i):
             i -= 1
         else:
             return
-
 
 # ******************* Selection sort code *******************
 # Traditional Selection sort
@@ -43,44 +42,51 @@ def find_min_index(L, n):
 
 
 # **************************************************************************
-#                       ***** Experiment Begins *****
+#                       ***** Experiments Begin *****
 # **************************************************************************
 
 
-n = 100
-k = 1000
-totalBubbleTime = 0;
-totalInsertionTime = 0;
-totalSelectionTime = 0;
+# ******************* ~ Experiment A ~ *******************
 
-for _ in range(n):
-    L = Tools.create_random_list(k,k)
+nA = 100                 #number of simulations
+kA = 1000                #size of the list
+maxElementA = 100        #max size of an element
+
+totalBubbleTimeA = 0;
+totalInsertionTimeA = 0;
+totalSelectionTimeA = 0;
+
+for _ in range(nA):
+    L = Tools.create_random_list(kA,maxElementA)
     L2 = L.copy()
     L3 = L.copy()
 
     start1 = timeit.default_timer()
     bubble_sort(L)
     end1 = timeit.default_timer()
-    totalBubbleTime += end1 - start1
-
+    totalBubbleTimeA += end1 - start1
 
     start2 = timeit.default_timer()
     insertion_sort(L2)
     end2 = timeit.default_timer()
-    totalInsertionTime += end2 - start2
+    totalInsertionTimeA += end2 - start2
+
 
     start3 = timeit.default_timer()
     selection_sort(L3)
     end3 = timeit.default_timer()
-    totalSelectionTime += end3 - start3
+    totalSelectionTimeA += end3 - start3
 
-print("~ Total Run-Times After",n,"Sorted Lists (seconds) ~")
+# ******************* ~ Experiment B ~ *******************
+
+print("~ Total Run-Times After",nA,"Sorted Lists (seconds) ~")
+print("List Size:",kA,"\t"+"Max Element Size:",maxElementA)
 print("------------------------------------------------------")
-print("Bubble sort:",totalBubbleTime)
-print("Insertion sort:",totalInsertionTime)
-print("Selection sort:",totalSelectionTime)
+print("Bubble sort:",totalBubbleTimeA)
+print("Insertion sort:",totalInsertionTimeA)
+print("Selection sort:",totalSelectionTimeA)
 
-
-
+# plt.plot()
+# plt.show()
 
 
