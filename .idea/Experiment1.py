@@ -11,6 +11,9 @@ def create_random_list(n):
         L.append(random.randint(1,n))
     return L
 
+# def create_random_list(length, max_value):
+#     return [random.randint(0, max_value) for _ in range(length)]
+
 
 # Creates a near sorted list by creating a random list, sorting it, then doing a random number of swaps
 def create_near_sorted_list(length, max_value, swaps):
@@ -32,7 +35,6 @@ def swap(L, i, j):
 def insertion_sort(L):
     for i in range(1, len(L)):
         insert(L, i)
-
 
 def insert(L, i):
     while i > 0:
@@ -93,9 +95,11 @@ def compareRunTimes():
     while n < 3000:
         n += 100
 
-
         #running tests for the bubble sort
         L = create_random_list(n)
+        L2 = L.copy()
+        L3 = L.copy()
+        print(L)
         start = timeit.default_timer()
         bubble_sort(L)
         end = timeit.default_timer()
@@ -105,7 +109,7 @@ def compareRunTimes():
         #running tests for the insertion sort
         L = create_random_list(n)
         start = timeit.default_timer()
-        insertion_sort(L)
+        insertion_sort(L2)
         end = timeit.default_timer()
         insertionSortTime.append(end - start)
         elementsInsertionSort.append(n)
@@ -113,7 +117,7 @@ def compareRunTimes():
         #running tests for the selection sort
         L = create_random_list(n)
         start = timeit.default_timer()
-        selection_sort(L)
+        selection_sort(L3)
         end = timeit.default_timer()
         selectionSortTime.append(end - start)
         elementsSectionSort.append(n)
