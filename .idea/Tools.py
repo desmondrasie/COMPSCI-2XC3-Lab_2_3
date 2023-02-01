@@ -18,3 +18,4 @@ def create_near_sorted_list(length, max_value, swaps):
 def swap(L, i, j):
     L[i], L[j] = L[j], L[i]
 
+create_near_sorted_list(3,2,3)

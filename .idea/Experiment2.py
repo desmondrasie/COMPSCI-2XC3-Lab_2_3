@@ -110,7 +110,6 @@ print("Bubble sort optimized:",totalBubbleTime2)
 print("")
 
 
-
 totalSelectionTime1 = 0;
 totalSelectionTime2 = 0;
 
