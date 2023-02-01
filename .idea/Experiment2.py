@@ -97,7 +97,7 @@ for _ in range(n):
     totalBubbleTime1 += end - start
 
     start = timeit.default_timer()
-    bubble_sort2(L)
+    bubble_sort2(L2)
     end = timeit.default_timer()
     totalBubbleTime2 += end - start
 
@@ -123,7 +123,7 @@ for _ in range(n):
     totalSelectionTime1 += end - start
 
     start = timeit.default_timer()
-    selection_sort2(L)
+    selection_sort2(L2)
     end = timeit.default_timer()
     totalSelectionTime2 += end - start
 

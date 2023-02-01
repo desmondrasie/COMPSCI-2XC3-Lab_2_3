@@ -1,6 +1,10 @@
 import Tools
 import timeit
+import matplotlib.pyplot as plt
 
+# ******************* Swap Function code *******************
+def swap(L, i, j):
+    L[i], L[j] = L[j], L[i]
 
 # ******************* Traditional Bubble sort code *******************
 def bubble_sort(L):
@@ -41,5 +45,53 @@ def insert(L, i):
 #                       ***** Experiments Begin *****
 # **************************************************************************
 
-n = 100
-L = Tools.create_near_sorted_list(5000,n,)
+def compareRunTimes():
+    numOfSwaps = -100
+    n = 5000
+    # creating empty lists to store times for each sort
+    bubbleSortTime=[]
+    insertionSortTime=[]
+    selectionSortTime=[]
+
+    #creating empty lists to store the list length
+    elementsBubbleSort=[]
+    elementsInsertionSort=[]
+    elementsSectionSort=[]
+
+
+    while numOfSwaps < 3000:
+        numOfSwaps += 100
+
+        #running tests for the bubble sort
+        L = Tools.create_near_sorted_list(n,n,numOfSwaps)
+        L2 = L.copy()
+        L3 = L.copy()
+        start = timeit.default_timer()
+        bubble_sort(L)
+        end = timeit.default_timer()
+        bubbleSortTime.append(end - start)
+        elementsBubbleSort.append(numOfSwaps)
+
+        #running tests for the insertion sort
+        start = timeit.default_timer()
+        insertion_sort(L2)
+        end = timeit.default_timer()
+        insertionSortTime.append(end - start)
+        elementsInsertionSort.append(numOfSwaps)
+
+        #running tests for the selection sort
+        start = timeit.default_timer()
+        selection_sort(L3)
+        end = timeit.default_timer()
+        selectionSortTime.append(end - start)
+        elementsSectionSort.append(numOfSwaps)
+
+    #plotting the graph
+    plt.plot(elementsBubbleSort,bubbleSortTime,label = "bubble sort")
+    plt.plot(elementsInsertionSort,insertionSortTime,label = "insertion sort")
+    plt.plot(elementsSectionSort,selectionSortTime,label = "selection sort")
+    plt.legend()
+    plt.show()
+
+compareRunTimes()
+

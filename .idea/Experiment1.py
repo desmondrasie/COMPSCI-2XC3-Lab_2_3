@@ -80,7 +80,7 @@ def find_min_index(L, n):
 
 
 def compareRunTimes():
-    n=0
+    n = 0
     # creating empty lists to store times for each sort 
     bubbleSortTime=[]
     insertionSortTime=[]
@@ -99,7 +99,6 @@ def compareRunTimes():
         L = create_random_list(n)
         L2 = L.copy()
         L3 = L.copy()
-        print(L)
         start = timeit.default_timer()
         bubble_sort(L)
         end = timeit.default_timer()
@@ -107,7 +106,6 @@ def compareRunTimes():
         elementsBubbleSort.append(n)
 
         #running tests for the insertion sort
-        L = create_random_list(n)
         start = timeit.default_timer()
         insertion_sort(L2)
         end = timeit.default_timer()
@@ -115,7 +113,6 @@ def compareRunTimes():
         elementsInsertionSort.append(n)
 
         #running tests for the selection sort
-        L = create_random_list(n)
         start = timeit.default_timer()
         selection_sort(L3)
         end = timeit.default_timer()
