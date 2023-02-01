@@ -59,7 +59,7 @@ def compareRunTimes():
     elementsSectionSort=[]
 
 
-    while numOfSwaps < 3000:
+    while numOfSwaps < 5000:
         numOfSwaps += 100
 
         #running tests for the bubble sort
@@ -91,6 +91,9 @@ def compareRunTimes():
     plt.plot(elementsInsertionSort,insertionSortTime,label = "insertion sort")
     plt.plot(elementsSectionSort,selectionSortTime,label = "selection sort")
     plt.legend()
+    plt.title("Experiment #3")
+    plt.xlabel("Number Of Swaps")
+    plt.ylabel("Run Time (s)")
     plt.show()
 
 compareRunTimes()

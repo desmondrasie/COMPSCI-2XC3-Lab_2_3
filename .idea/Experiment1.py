@@ -124,6 +124,9 @@ def compareRunTimes():
     plt.plot(elementsInsertionSort,insertionSortTime,label = "insertion sort")
     plt.plot(elementsSectionSort,selectionSortTime,label = "selection sort")
     plt.legend()
+    plt.title("Experiment #1")
+    plt.xlabel("List Length")
+    plt.ylabel("Run Time (s)")
+    print(bubbleSortTime[-1])
     plt.show()
-
 compareRunTimes()

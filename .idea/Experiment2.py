@@ -1,5 +1,6 @@
 import Tools
 import timeit
+import matplotlib.pyplot as plt
 
 
 # ******************* Swap Function code *******************
@@ -27,7 +28,6 @@ def bubble_sort2(L):
                 L[j] = value
                 value = L[j+1]
         L[-count] = value
-        # print(L)
         count += 1
 
 # ******************* Traditional Selection sort code *******************
@@ -65,72 +65,78 @@ def find_max_index2(L,n):
             max_index = i
     return max_index
 
-# L = [1,9,2,6,3,4,5,1]
-# L2 = L.copy()
-# # print(L)
-# selection_sort(L)
-# selection_sort2(L2)
-# # print(L)
-# print(L2)
-
-
 
 # **************************************************************************
 #                       ***** Experiments Begin *****
 # **************************************************************************
 
+def compareRunTimes():
+    n = 0
+    # creating empty lists to store times for each sort
+    bubbleSortTime=[]
+    bubbleSortTime2=[]
+    selectionSortTime=[]
+    selectionSortTime2=[]
 
-n = 100                 #number of simulations
-k = 1000                #length of the list
-maxElement = 100        #max size of an element
+    #creating empty lists to store the list length
+    elementsBubbleSort=[]
+    elementsBubbleSort2=[]
+    elementsSelectionSort=[]
+    elementsSelectionSort2=[]
 
-totalBubbleTime1 = 0;
-totalBubbleTime2 = 0;
+    while n < 5000:
+        n += 100
 
-for _ in range(n):
-    L = Tools.create_random_list(k,maxElement)
-    L2 = L.copy()
+        L = Tools.create_random_list(n,n)
+        L2 = L.copy()
+        L3 = L.copy()
+        L4 = L.copy()
 
-    start = timeit.default_timer()
-    bubble_sort(L)
-    end = timeit.default_timer()
-    totalBubbleTime1 += end - start
+        #running tests for Traditional Bubble sort
+        start = timeit.default_timer()
+        bubble_sort(L)
+        end = timeit.default_timer()
+        bubbleSortTime.append(end - start)
+        elementsBubbleSort.append(n)
 
-    start = timeit.default_timer()
-    bubble_sort2(L2)
-    end = timeit.default_timer()
-    totalBubbleTime2 += end - start
+        #running tests for Traditional Selection sort
+        start = timeit.default_timer()
+        selection_sort(L2)
+        end = timeit.default_timer()
+        selectionSortTime.append(end - start)
+        elementsSelectionSort.append(n)
 
-print("------------------------------------------------------")
-print("~ Total Run-Times After",n,"Sorted Lists (seconds) ~")
-print("List Size:",k,"\t"+"Max Element Size:",maxElement)
-print("------------------------------------------------------")
-print("Bubble sort original:",totalBubbleTime1)
-print("Bubble sort optimized:",totalBubbleTime2)
-print("")
+        #running tests for Optimized Bubble sort
+        start = timeit.default_timer()
+        bubble_sort2(L3)
+        end = timeit.default_timer()
+        bubbleSortTime2.append(end - start)
+        elementsBubbleSort2.append(n)
+
+        #running tests for Optimized Selection sort
+        start = timeit.default_timer()
+        selection_sort2(L4)
+        end = timeit.default_timer()
+        selectionSortTime2.append(end - start)
+        elementsSelectionSort2.append(n)
+
+    #plotting the graph
+    figure, (ax1, ax2) = plt.subplots(2,sharex=True)
+    ax1.plot(elementsBubbleSort,bubbleSortTime,label = "Traditional")
+    ax1.plot(elementsBubbleSort2,bubbleSortTime2,label = "Optimized")
+    ax1.set_title("Bubble Sort Comparison")
+    ax1.legend()
+
+    ax2.plot(elementsSelectionSort,selectionSortTime,label = "Traditional")
+    ax2.plot(elementsSelectionSort2,selectionSortTime2,label = "Optimized")
+    ax2.set_title("Selection Sort Comparison")
+    ax2.legend()
+
+    figure.suptitle("Experiment #2")
+    figure.supxlabel("List Length")
+    figure.supylabel("Run Time (s)")
+
+    plt.show()
 
 
-totalSelectionTime1 = 0;
-totalSelectionTime2 = 0;
-
-for _ in range(n):
-    L = Tools.create_random_list(k,maxElement)
-    L2 = L.copy()
-
-    start = timeit.default_timer()
-    selection_sort(L)
-    end = timeit.default_timer()
-    totalSelectionTime1 += end - start
-
-    start = timeit.default_timer()
-    selection_sort2(L2)
-    end = timeit.default_timer()
-    totalSelectionTime2 += end - start
-
-
-print("*****************************************************")
-print("~ Total Run-Times After",n,"Sorted Lists (seconds) ~")
-print("List Size:",k,"\t"+"Max Element Size:",maxElement)
-print("------------------------------------------------------")
-print("Selection sort original:",totalSelectionTime1)
-print("Selection sort optimized:",totalSelectionTime2)
+compareRunTimes()
