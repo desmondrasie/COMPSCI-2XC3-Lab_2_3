@@ -127,6 +127,6 @@ def compareRunTimes():
     plt.title("Experiment #1")
     plt.xlabel("List Length")
     plt.ylabel("Run Time (s)")
-    print(bubbleSortTime[-1])
     plt.show()
+
 compareRunTimes()
