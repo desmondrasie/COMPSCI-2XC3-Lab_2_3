@@ -72,13 +72,13 @@ def find_max_index2(L,n):
 
 def compareRunTimes():
     n = 0
-    # creating empty lists to store times for each sort
+    # creating empty lists to store the Run Time for each sort
     bubbleSortTime=[]
     bubbleSortTime2=[]
     selectionSortTime=[]
     selectionSortTime2=[]
 
-    #creating empty lists to store the list length
+    #creating empty lists to store the List Lengths for each sort
     elementsBubbleSort=[]
     elementsBubbleSort2=[]
     elementsSelectionSort=[]

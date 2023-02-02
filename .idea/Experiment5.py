@@ -152,7 +152,7 @@ def compareRunTimes():
     elementsMergeSort=[]
     elementsHeapSort=[]
 
-    while numOfSwaps < 500:
+    while numOfSwaps < 1000:
         numOfSwaps += 1
 
         #running tests for the quick sort

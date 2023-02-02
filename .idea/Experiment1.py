@@ -15,7 +15,7 @@ def create_random_list(n):
 #     return [random.randint(0, max_value) for _ in range(length)]
 
 
-# Creates a near sorted list by creating a random list, sorting it, then doing a random number of swaps
+# Create a near sorted list by creating a random list, sorting it, then doing a random number of swaps
 def create_near_sorted_list(length, max_value, swaps):
     L = create_random_list(length, max_value)
     L.sort()

@@ -19,7 +19,6 @@ def selection_sort(L):
         min_index = find_min_index(L, i)
         swap(L, i, min_index)
 
-
 def find_min_index(L, n):
     min_index = n
     for i in range(n+1, len(L)):
@@ -46,14 +45,14 @@ def insert(L, i):
 # **************************************************************************
 
 def compareRunTimes():
-    numOfSwaps = -100
+    numOfSwaps = -100 #start at -100 since first iteration increments by 100; 0 swaps to start
     n = 5000
-    # creating empty lists to store times for each sort
+    #creating empty lists to store the Run Times of each sort
     bubbleSortTime=[]
     insertionSortTime=[]
     selectionSortTime=[]
 
-    #creating empty lists to store the list length
+    #creating empty lists to store the Number of Swaps of each sort
     elementsBubbleSort=[]
     elementsInsertionSort=[]
     elementsSectionSort=[]
