@@ -65,7 +65,6 @@ def find_max_index2(L,n):
             max_index = i
     return max_index
 
-
 # **************************************************************************
 #                       ***** Experiments Begin *****
 # **************************************************************************
@@ -84,7 +83,7 @@ def compareRunTimes():
     elementsSelectionSort=[]
     elementsSelectionSort2=[]
 
-    while n < 5000:
+    while n < 3000:
         n += 100
 
         L = Tools.create_random_list(n,n)

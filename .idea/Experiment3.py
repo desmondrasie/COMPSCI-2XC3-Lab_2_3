@@ -58,7 +58,7 @@ def compareRunTimes():
     elementsSectionSort=[]
 
 
-    while numOfSwaps < 5000:
+    while numOfSwaps < 3000:
         numOfSwaps += 100
 
         #running tests for the bubble sort
