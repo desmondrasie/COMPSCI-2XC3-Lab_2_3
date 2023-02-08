@@ -101,20 +101,19 @@ def quicksort_copy(L):
 # **************************************************************************
 
 def compareRunTimes():
-    #Firstly We're running tests for n value to be less than 20 
     # creating empty lists to store times for each sort
     n=0
-    mergeSortTime1=[]
-    quickSortTime1=[]
-    insertionSortTime1=[]
+    mergeSortTime=[]
+    quickSortTime=[]
+    insertionSortTime=[]
     
     #creating empty lists to store the list length  
-    elementsInsertionSort1=[]
-    elementsMergeSort1=[]
-    elementsQuickSort1=[]
+    elementsInsertionSort=[]
+    elementsMergeSort=[]
+    elementsQuickSort=[]
     
-    while n<20:
-        n+=1
+    while n<50:
+        
         L1 = create_random_list(n)
         L2=L1.copy()
         L3=L1.copy()
@@ -122,122 +121,33 @@ def compareRunTimes():
         start = timeit.default_timer()
         insertion_sort(L1)
         end = timeit.default_timer()
-        insertionSortTime1.append(end - start)
-        elementsInsertionSort1.append(n)
+        insertionSortTime.append(end - start)
+        elementsInsertionSort.append(n)
         
         #running tests for the merge sort
         #L = create_random_list(n,3000)
         start = timeit.default_timer()
         mergesort(L2)
         end = timeit.default_timer()
-        mergeSortTime1.append(end - start)
-        elementsMergeSort1.append(n)
+        mergeSortTime.append(end - start)
+        elementsMergeSort.append(n)
         
         #running tests for the quick sort
         #L = create_random_list(n,3000)
         start = timeit.default_timer()
         quicksort(L3)
         end = timeit.default_timer()
-        quickSortTime1.append(end - start)
-        elementsQuickSort1.append(n)
-        
-    #Now, We're running tests for n value to be less than 15 
-    # creating empty lists to store times for each sort    
-
-    n=0
-    mergeSortTime2=[]
-    quickSortTime2=[]
-    insertionSortTime2=[]
-    
-    #creating empty lists to store the list length  
-    elementsInsertionSort2=[]
-    elementsMergeSort2=[]
-    elementsQuickSort2=[]
-    
-    while n<15:
-        n+=1
-        L1 = create_random_list(n)
-        L2=L1.copy()
-        L3=L1.copy()
-        start = timeit.default_timer()
-        insertion_sort(L1)
-        end = timeit.default_timer()
-        insertionSortTime2.append(end - start)
-        elementsInsertionSort2.append(n)
-        
-        #running tests for the merge sort
-        #L = create_random_list(n,3000)
-        start = timeit.default_timer()
-        mergesort(L2)
-        end = timeit.default_timer()
-        mergeSortTime2.append(end - start)
-        elementsMergeSort2.append(n)
-        
-        #running tests for the quick sort
-        #L = create_random_list(n,3000)
-        start = timeit.default_timer()
-        quicksort(L3)
-        end = timeit.default_timer()
-        quickSortTime2.append(end - start)
-        elementsQuickSort2.append(n)
-
-    #Now, We're running tests for n value to be less than 9 
-    # creating empty lists to store times for each sort
-    
-    n=0
-    mergeSortTime3=[]
-    quickSortTime3=[]
-    insertionSortTime3=[]
-    
-    #creating empty lists to store the list length  
-    elementsInsertionSort3=[]
-    elementsMergeSort3=[]
-    elementsQuickSort3=[]
-    
-    while n<9:
-        n+=1
-        L1 = create_random_list(n)
-        L2=L1.copy()
-        L3=L1.copy()
-        start = timeit.default_timer()
-        insertion_sort(L1)
-        end = timeit.default_timer()
-        insertionSortTime3.append(end - start)
-        elementsInsertionSort3.append(n)
-        
-        #running tests for the merge sort
-        #L = create_random_list(n,3000)
-        start = timeit.default_timer()
-        mergesort(L2)
-        end = timeit.default_timer()
-        mergeSortTime3.append(end - start)
-        elementsMergeSort3.append(n)
-        
-        #running tests for the quick sort
-        #L = create_random_list(n,3000)
-        start = timeit.default_timer()
-        quicksort(L3)
-        end = timeit.default_timer()
-        quickSortTime3.append(end - start)
-        elementsQuickSort3.append(n)       
-    #plotting all the 3 different plots for different values using gridspec
-    gs = gridspec.GridSpec(2, 2)
-    plt.figure()
-    
-    ax = plt.subplot(gs[0, 0]) # row 0, col 0
-    plt.plot(elementsInsertionSort1,insertionSortTime1,label = "insertion sort")
-    plt.plot(elementsMergeSort1,mergeSortTime1,label = "merge sort")
-    plt.plot(elementsQuickSort1,quickSortTime1,label = "quick sort")
-    
-    
-    ax = plt.subplot(gs[0, 1]) # row 0, col 1
-    plt.plot(elementsInsertionSort2,insertionSortTime2,label = "insertion sort")
-    plt.plot(elementsMergeSort2,mergeSortTime2,label = "merge sort")
-    plt.plot(elementsQuickSort2,quickSortTime2,label = "quick sort")
-    
-    ax = plt.subplot(gs[1, :]) # row 0, col 1
-    plt.plot(elementsInsertionSort3,insertionSortTime3,label = "insertion sort")
-    plt.plot(elementsMergeSort3,mergeSortTime3,label = "merge sort")
-    plt.plot(elementsQuickSort3,quickSortTime3,label = "quick sort")
+        quickSortTime.append(end - start)
+        elementsQuickSort.append(n)
+        n+=5
+# plotting the graph with 3 curves for each sort         
+    plt.plot(elementsInsertionSort,insertionSortTime,label = "insertion sort")
+    plt.plot(elementsMergeSort,mergeSortTime,label = "merge sort")
+    plt.plot(elementsQuickSort,quickSortTime,label = "quick sort")
+    plt.legend()
+    plt.title("Experiment #8")
+    plt.xlabel("List Length")
+    plt.ylabel("Run Time (s)")
+    plt.show
     
 compareRunTimes()
