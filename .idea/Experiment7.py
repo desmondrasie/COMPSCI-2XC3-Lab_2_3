@@ -3,85 +3,67 @@ import math
 import random
 import timeit
 import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
 
 def create_random_list(n):
     L = []
     for _ in range(n):
         L.append(random.randint(1,n))
     return L
+# ************ Dual pivot Quick Sort ************
+def dual_quicksort(L):
+    copy = dual_quicksort_copy(L)
+    for i in range(len(L)):
+        L[i] = copy[i]
         
-# ************ Bottom Up Merge Sort ************    
-def bottom_up_mergesort(L):
-    n = len(L)
-    step = 1
-    while step < n:
-        for i in range(0, n, step * 2):
-            L[i:i + step * 2] = merge_bottom_up(L[i:i + step], L[i + step:i + step * 2])
-        step *= 2
-    return L
-
-def merge_bottom_up(left, right):
-    result = []
-    i, j = 0, 0
-    while i < len(left) and j < len(right):
-        if left[i] < right[j]:
-            result.append(left[i])
-            i += 1
-        else:
-            result.append(right[j])
-            j += 1
-    while i < len(left):
-        result.append(left[i])
-        i += 1
-    while j < len(right):
-        result.append(right[j])
-        j += 1
-    return result
-# ************ Traditional Merge Sort ************
-def mergesort(L):
+def dual_quicksort_copy(L):
     if len(L) <= 1:
-        return
-    mid = len(L) // 2
-    left, right = L[:mid], L[mid:]
-
-    mergesort(left)
-    mergesort(right)
-    temp = merge(left, right)
-
-    for i in range(len(temp)):
-        L[i] = temp[i]
-
-
-def merge(left, right):
-    L = []
-    i = j = 0
-
-    while i < len(left) or j < len(right):
-        if i >= len(left):
-            L.append(right[j])
-            j += 1
-        elif j >= len(right):
-            L.append(left[i])
-            i += 1
+        return L
+    
+    pivot1, pivot2 = L[0], L[1]
+    if pivot1 > pivot2:
+        pivot1, pivot2 = pivot2, pivot1
+    
+    less, equal, greater = [], [], []
+    for i in L:
+        if i < pivot1:
+            less.append(i)
+        elif pivot1 <= i <= pivot2:
+            equal.append(i)
         else:
-            if left[i] <= right[j]:
-                L.append(left[i])
-                i += 1
-            else:
-                L.append(right[j])
-                j += 1
-    return L
+            greater.append(i)
+    
+    return dual_quicksort_copy(less) + equal + dual_quicksort_copy(greater)
 
 
+# ************ Traditional Quick Sort ************
+def quicksort(L):
+    copy = quicksort_copy(L)
+    for i in range(len(L)):
+        L[i] = copy[i]
+
+
+def quicksort_copy(L):
+    if len(L) < 2:
+        return L
+    pivot = L[0]
+    left, right = [], []
+    for num in L[1:]:
+        if num < pivot:
+            left.append(num)
+        else:
+            right.append(num)
+    return quicksort_copy(left) + [pivot] + quicksort_copy(right)
+ 
 def compareRunTimes():
     n=0 
     # creating empty lists to store times for each sort 
-    tmergeSortTime=[]
-    bmergeSortTime=[]
+    tquickSortTime=[]
+    dquickSortTime=[]
     
     #creating empty lists to store the list length  
-    elementsttmergesort=[]
-    elementsbmergesort=[]
+    elementstquicksort=[]
+    elementsdquicksort=[]
      
     while n < 3000:
         n += 100
@@ -89,28 +71,28 @@ def compareRunTimes():
         L1 = create_random_list(3000)
         L2=L1.copy()
         
-        #running tests for the traditional sort
+        #running tests for the traditional quick sort sort
         start = timeit.default_timer()
-        mergesort(L1)
+        quicksort(L1)
         end = timeit.default_timer()
-        tmergeSortTime.append(end - start)
-        elementsttmergesort.append(n)
+        tquickSortTime.append(end - start)
+        elementstquicksort.append(n)
         
-        #running tests for the bottom up merge sort
+        #running tests for the dual pivot quick sort sort
         #L = create_random_list(n,3000)
         start = timeit.default_timer()
-        bottom_up_mergesort(L2)
+        dual_quicksort(L2)
         end = timeit.default_timer()
-        bmergeSortTime.append(end - start)
-        elementsbmergesort.append(n)
+        dquickSortTime.append(end - start)
+        elementsdquicksort.append(n)
         
         
     
     #plotting the graph
-    plt.plot(elementsttmergesort,tmergeSortTime,label = "traditional merge sort")
-    plt.plot(elementsbmergesort,bmergeSortTime,label = "bottom up merge sort")
+    plt.plot(elementstquicksort,tquickSortTime,label = "traditional quick sort")
+    plt.plot(elementsdquicksort,dquickSortTime,label = "dual pivot quick sort")
     plt.legend()
-    plt.title("Experiment #7")
+    plt.title("Experiment #6")
     plt.xlabel("List Length")
     plt.ylabel("Run Time (s)")
     plt.show
