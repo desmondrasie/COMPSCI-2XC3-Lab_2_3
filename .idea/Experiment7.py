@@ -86,7 +86,7 @@ def compareRunTimes():
     while n < 3000:
         n += 100
         #creating random list to run the tests on
-        L1 = create_random_list(3000)
+        L1 = create_random_list(n)
         L2=L1.copy()
         
         #running tests for the traditional sort
