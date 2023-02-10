@@ -113,5 +113,5 @@ def compareRunTimes():
     plt.title("Experiment #7")
     plt.xlabel("List Length")
     plt.ylabel("Run Time (s)")
-    plt.show
+    plt.show()
 compareRunTimes()
